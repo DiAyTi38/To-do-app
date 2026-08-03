@@ -1,11 +1,14 @@
 import {
   FlatList,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
+import { useState } from "react";
 
 type HeaderProps = {
   activeId: string;
@@ -21,6 +24,7 @@ const categories = [
 ];
 
 const HeaderHome = ({ activeId, onSelect }: HeaderProps) => {
+  const [menuVisible, setMenuVisible] = useState(false);
   return (
     <View style={styles.headerContainer}>
       {/* 4. FlatList cuộn ngang chiếm phần không gian bên trái */}
@@ -55,9 +59,137 @@ const HeaderHome = ({ activeId, onSelect }: HeaderProps) => {
       />
 
       {/* 5. Nút Menu 3 chấm cố định ở bên phải */}
-      <TouchableOpacity style={styles.menuIcon}>
+      <TouchableOpacity
+        style={styles.menuIcon}
+        onPress={() => setMenuVisible(true)}
+      >
         <Entypo name="dots-three-vertical" size={20} color="#6b7280" />
       </TouchableOpacity>
+
+      <Modal
+        visible={menuVisible}
+        transparent={true} // Giữ nền màn hình bên dưới
+        animationType="fade" // Hiệu ứng xuất hiện nhẹ nhàng
+        onRequestClose={() => setMenuVisible(false)}
+      >
+        {/* Lớp phủ màn hình: Bấm ra ngoài để đóng Menu */}
+        <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
+          <View style={styles.modalOverlay}>
+            {/* Ngăn sự kiện bấm bên trong hộp Menu bị đóng */}
+            <TouchableWithoutFeedback>
+              <View style={styles.menuDropdown}>
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>Chọn công việc</Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>Quản lý Danh mục</Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>Đánh giá hôm nay</Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>Tìm kiếm</Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>Sắp xếp công việc</Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>In</Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>
+                    Hiện tại Công Việc Nhỏ
+                  </Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>Phản hồi</Text>
+                </TouchableOpacity>
+
+                <View style={styles.divider} />
+
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setMenuVisible(false);
+                    // Logic xử lý khi chọn Thêm danh mục
+                  }}
+                >
+                  <Text style={styles.menuItemText}>Nâng cấp lên Pro</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 };
@@ -91,5 +223,41 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     justifyContent: "center",
     alignItems: "center",
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.15)", // Lớp nền tối mờ nhẹ
+    justifyContent: "flex-start",
+    alignItems: "flex-end", // Đẩy Hộp Menu về góc phải
+    paddingTop: 105, // Khoảng cách từ mép trên màn hình xuống ngay dưới nút 3 chấm
+    paddingRight: 16,
+  },
+  menuDropdown: {
+    backgroundColor: "#ffffff",
+    borderRadius: 12,
+    paddingVertical: 6,
+    width: 200,
+    // Hiệu ứng đổ bóng mượt trên iOS & Android
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    gap: 12,
+  },
+  menuItemText: {
+    fontSize: 14,
+    color: "#374151",
+    fontWeight: "500",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#f3f4f6",
   },
 });
