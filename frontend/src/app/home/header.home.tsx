@@ -7,8 +7,9 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import Entypo from "@expo/vector-icons/Entypo";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useState } from "react";
+import { APP_COLOR } from "@/hooks/constant";
 
 type HeaderProps = {
   activeId: string;
@@ -42,7 +43,8 @@ const HeaderHome = ({ activeId, onSelect }: HeaderProps) => {
             style={[
               styles.pillButton,
               {
-                backgroundColor: item.id === activeId ? "#609af8" : "#e6f0fa",
+                backgroundColor:
+                  item.id === activeId ? APP_COLOR.BLUE : APP_COLOR.GREY,
               },
             ]}
           >
@@ -63,7 +65,11 @@ const HeaderHome = ({ activeId, onSelect }: HeaderProps) => {
         style={styles.menuIcon}
         onPress={() => setMenuVisible(true)}
       >
-        <Entypo name="dots-three-vertical" size={20} color="#6b7280" />
+        <MaterialCommunityIcons
+          name="dots-vertical"
+          size={24}
+          color="#6b7280"
+        />
       </TouchableOpacity>
 
       <Modal
