@@ -16,7 +16,7 @@ type HeaderProps = {
   onSelect: (id: string) => void;
 };
 
-const categories = [
+export const categories = [
   { id: "1", title: "Tất cả" },
   { id: "2", title: "Công việc" },
   { id: "3", title: "Cá nhân" },

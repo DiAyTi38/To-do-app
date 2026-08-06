@@ -62,10 +62,11 @@ function CustomFlatList<T>({
             {props.HeaderComponent}
           </Animated.View>
         }
-        ListHeaderComponentStyle={[
-          props.ListHeaderComponentStyle,
-          styles.header,
-        ]}
+        ListHeaderComponentStyle={
+          props.ListHeaderComponentStyle
+            ? [props.ListHeaderComponentStyle, styles.header]
+            : styles.header
+        }
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           {
